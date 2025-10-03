@@ -10,8 +10,8 @@ Min invoice_date: 2024-01-01
 I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume a story to the reason of these missing values. Forward filling would guarantee inaccuracy in this case
 
 # Example outputs for analysis queries
- - For a summarized view of analysis queries outputs, please look into "./notebooks/analysis questions.ipynb" notebook
- - For a detailed view of analysis queries outputs, please look into "./output_tables/answer*.csv" files
+For a summarized view of analysis queries outputs, please look into "./notebooks/analysis questions.ipynb" notebook
+For a detailed view of analysis queries outputs, please look into "./output_tables/answer*.csv" files
  - 1. Basic: Which top 5 clients have the largest total invoice amounts outstanding?
    - 
 
