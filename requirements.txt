@@ -1,0 +1,8 @@
+# I am using Python 3.9.7
+# I am using Java 1.8.0_391 (Java 8), required for jpype1 (dependency for tabula-py)
+
+duckdb==1.4.0
+jpype1==1.6.0 # Using java
+numpy==2.0.2
+pandas==2.3.1
+tabula-py==2.10.0
