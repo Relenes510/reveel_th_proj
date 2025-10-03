@@ -32,7 +32,7 @@ I did think about forward filling these missing values but there wasnt a clear p
       - [Show Answer 4 part C CSV](output_tables/answer4partc.csv) 
 
 # What I would do differently for production code
-1.) I would investigate and test tabula-py more before using it in production code and consider other options
- - It did give me early issues and was crashing my kernel
-2.) I would definitely add a json file with configs for each table so I can specify which tables I want as CAPS or not
-3.) I would not use Jupyter Notebooks to orchestrate this dataflow. It would be on something like Dagster
+1. I would investigate and test tabula-py more before using it in production code and consider other options
+    - It did give me early issues and was crashing my kernel
+2. I would definitely add a json file with configs for each table so I can specify which tables I want as CAPS or not
+3. I would not use Jupyter Notebooks to orchestrate this dataflow. It would be on something like Dagster
