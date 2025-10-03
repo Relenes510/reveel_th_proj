@@ -26,11 +26,10 @@ I did think about forward filling these missing values but there wasnt a clear p
   - What is the total cost savings opportunity per client?
     - [Show Answer 4 part A CSV](output_tables/answer4parta.csv) 
   - Which clients have >50% savings?
-    - [Show Answer 4 part B CSV](output_tables/answer4partb.csv) 
+    - [Show Answer 4 part B CSV](output_tables/answer4partb.csv)
+    - *No clients have saved more than 50%*
   - Which clients have >$500k savings?
     - [Show Answer 4 part C CSV](output_tables/answer4partc.csv) 
-
-
 
 # What I would do differently for production code
 1.) I would investigate and test tabula-py more before using it in production code and consider other options
