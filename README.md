@@ -13,7 +13,7 @@ I did think about forward filling these missing values but there wasnt a clear p
 ##### For a summarized view of analysis queries outputs, please look into "./notebooks/analysis questions.ipynb" notebook. <br>
 ##### For a detailed view of analysis queries outputs, please look into "./output_tables/answer*.csv" files
  - 1. Basic: Which top 5 clients have the largest total invoice amounts outstanding?
-   - 
+   - 'Stark Partners', 'Red Logistics', 'Wayne Group', 'Umbrella Industries', 'Nimbus Holdings'
 
  - 2. Intermediate: Show the month-over-month invoice growth per client for 2024–2025.
    - 
