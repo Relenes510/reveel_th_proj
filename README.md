@@ -8,6 +8,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
  - What is really throwing me off is how INACTIVE client_id made orders AFTER the cli_join_dt. I really thought about how is it possible that a company made an order while they are in inactive. The most logical way for me to reason this is that the company made all these orders before they became inactive
    - Min invoice_date: 2024-01-01
  - I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume a story to the reason of these missing values. Forward filling would guarantee inaccuracy in this case
+ - For the analysis queries, I am assuming every client is represented by every client_id and not by company_name
 
 # Example outputs for analysis queries
 ##### Please see ./analysis questions.ipynb for derivation of answers!
