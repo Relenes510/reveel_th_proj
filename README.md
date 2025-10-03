@@ -12,19 +12,19 @@ I did think about forward filling these missing values but there wasnt a clear p
 # Example outputs for analysis queries
 ##### For a summarized view of analysis queries outputs, please look into "./notebooks/analysis questions.ipynb" notebook. <br>
 ##### For a detailed view of analysis queries outputs, please look into "./output_tables/answer*.csv" files
-- 1. Basic: Which top 5 clients have the largest total invoice amounts outstanding?
+1. Basic: Which top 5 clients have the largest total invoice amounts outstanding?
   - 'Stark Partners', 'Red Logistics', 'Wayne Group', 'Umbrella Industries', 'Nimbus Holdings'
 
-- 2. Intermediate: Show the month-over-month invoice growth per client for 2024–2025.
-  - 
-- 3. Discount Scenario: Show total costs for each client, if discounts were applied:
+2. Intermediate: Show the month-over-month invoice growth per client for 2024–2025.
+  -
+3. Discount Scenario: Show total costs for each client, if discounts were applied:
   - 20% off GROUND
      - Then, who are the new top 5 spenders?
   - 30% off FREIGHT
      - Then, who are the new top 5 spenders?
   - 50% off 2 DAY
      - Then, who are the new top 5 spenders?
-- 4. Reclassification Scenario: Suppose all “EXPRESS” shipments were instead billed as “GROUND” (lower cost).
+4. Reclassification Scenario: Suppose all “EXPRESS” shipments were instead billed as “GROUND” (lower cost).
   - What is the total cost savings opportunity per client?
     - 
   - Which clients have >50% savings?
