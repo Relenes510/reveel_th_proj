@@ -10,27 +10,25 @@ Min invoice_date: 2024-01-01
 I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume a story to the reason of these missing values. Forward filling would guarantee inaccuracy in this case
 
 # Example outputs for analysis queries
-##### For a summarized view of analysis queries outputs, please look into "./notebooks/analysis questions.ipynb" notebook. <br>
-##### For a detailed view of analysis queries outputs, please look into "./output_tables/answer*.csv" files
 1. Basic: Which top 5 clients have the largest total invoice amounts outstanding?
-    - [Download Answer 1 CSV](output_tables/answer1.csv)
+    - [Show Answer 1 CSV](output_tables/answer1.csv)
 
 2. Intermediate: Show the month-over-month invoice growth per client for 2024–2025.
-    -
+    - [Show Answer 2 CSV](output_tables/answer2.csv)
 3. Discount Scenario: Show total costs for each client, if discounts were applied:
-  - 20% off GROUND
-     - Then, who are the new top 5 spenders?
-  - 30% off FREIGHT
-     - Then, who are the new top 5 spenders?
-  - 50% off 2 DAY
-     - Then, who are the new top 5 spenders?
+  - 20% off GROUND, then, who are the new top 5 spenders?
+    - [Show Answer 3 part A CSV](output_tables/answer3parta.csv) 
+  - 30% off FREIGHT, then, who are the new top 5 spenders?
+    - [Show Answer 3 part B CSV](output_tables/answer3partb.csv) 
+  - 50% off 2 DAY, then, who are the new top 5 spenders?
+    - [Show Answer 3 part C CSV](output_tables/answer3partc.csv) 
 4. Reclassification Scenario: Suppose all “EXPRESS” shipments were instead billed as “GROUND” (lower cost).
   - What is the total cost savings opportunity per client?
-    - 
+    - [Show Answer 4 part A CSV](output_tables/answer4parta.csv) 
   - Which clients have >50% savings?
-    - 
+    - [Show Answer 4 part B CSV](output_tables/answer4partb.csv) 
   - Which clients have >$500k savings?
-    - 
+    - [Show Answer 4 part C CSV](output_tables/answer4partc.csv) 
 
 
 
