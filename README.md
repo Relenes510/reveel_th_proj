@@ -1,5 +1,5 @@
 # How to run pipeline
-The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open + run the individual notebooks to see how they are ran. All dependencies are included in the requirements.txt.
+The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open and run the individual notebooks to see how they are ran. All dependencies are included in the **requirements.txt**.
 <p align="center">
   <img src="ETL_Design.jpeg" alt="Pipeline Diagram" width="1000"/>
   <br>
