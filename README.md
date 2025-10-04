@@ -81,4 +81,4 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 5. In Production, I would add some logging functions to keep track of failures.
     - I would 100% create a function that sends the team an email alert over failures in the ETL pipeline.
 
-*I can assure that all code and written explanations came from myself and not AI. The only use of AI coding used was to create generic_company_words list in check_company_nm_col() of create_clients_tbl and create_invoices_tbl notebooks. Used prompt is commented in the code.*
+*I can assure that all code and written explanations came from myself and not AI. The only use of AI coding used was to create generic_company_words list in check_company_nm_col() of create_clients_tbl and create_invoices_tbl notebooks. The prompt that was used is commented inside the code cell.*
