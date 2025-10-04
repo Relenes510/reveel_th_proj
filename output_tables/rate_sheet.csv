@@ -1,0 +1,5 @@
+shipment_type,rate
+GROUND,1
+2DAY,5
+EXPRESS,10
+FREIGHT,20
