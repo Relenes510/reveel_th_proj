@@ -78,4 +78,5 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 3. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
     - Control of validation checks can also be done through JSON config files.
 4. I would have the output_tables folder be divided by type (clients, invoices, etc.).
-5. In Production, I would add some logging functions to keep track of failures. I would 100% create a function that sends the team an email alert over failures in the ETL pipeline.
+5. In Production, I would add some logging functions to keep track of failures.
+    - I would 100% create a function that sends the team an email alert over failures in the ETL pipeline.
