@@ -48,12 +48,13 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
   - I wanted to drop rows that are inactive companies with NULL values in tier AND invalid active_flag value (not Y or N). As they may create data issues down the pipeline. I considered these companies as invalid and I wanted to enforce that all companies to have Y or N in the active_flag column via a validation check       I created in validate_save_df().
 - All these ideas were scrapped after I found entries in the invoice table where orders were made in 2024-01-01 through 2025-12-31 from all the client_ids, **including ALL of those that I was targetting to drop.** I really thought about how is it possible that a company made an order while they are in inactive. To me the most logical reason is that the company placed all of these orders before they became inactive. I thought it was best to not drop any client_ids to preserve those orders for when its time to join the clients with invoices table.
 
-- If a company has the same client_id value in the table as two different rows & tiers, then I am going to assume they signed up for the higher available tier available. Meaning that I do not need to keep records of the lower tier as long as the client_id is the same for both entries
-- **For missing tier:** If a company does not have a value for tier, but are labeled as ACTIVE, then I am going to assume that BRONZE is the entry level tier and those active companies are BRONZE tier
-  - Therefore, I filled in those NULLs with "BRONZE" where active_flag == 'Y'
-- **For missing status and active_flag:** Im going to assume status is INACTIVE and active_flag is N as long as tier is NULL because if the company were to be active, it would of had a tier
-  - Therefore, I filled in NULL status values with 'INACTIVE' and NULL active_flag values with 'N' where tier is NULL
-- I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume why these missing values exist. Forward filling would guarantee inaccuracy in this case
+- What I stuck with:
+  - If a company has the same client_id value in the table as two different rows & tiers, then I am going to assume they signed up for the higher available tier available. Meaning that I do not need to keep records of the lower tier as long as the client_id is the same for both entries
+  - **For missing tier:** If a company does not have a value for tier, but are labeled as ACTIVE, then I am going to assume that BRONZE is the entry level tier and those active companies are BRONZE tier
+    - Therefore, I filled in those NULLs with "BRONZE" where active_flag == 'Y'
+  - **For missing status and active_flag:** Im going to assume status is INACTIVE and active_flag is N as long as tier is NULL because if the company were to be active, it would of had a tier
+    - Therefore, I filled in NULL status values with 'INACTIVE' and NULL active_flag values with 'N' where tier is NULL
+  - I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume why these missing values exist. Forward filling would guarantee inaccuracy in this case
 - Validation checks:
   - I believe that every stage of data engineering needs to have validation checks in place before writing to the final table. There was not a validation check placed in analysis questions notebook because there was no final table being written and outputted into the database (file system).
   - I used a MOCK dataset for both client and invoices notebooks to test my validation tests.
