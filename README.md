@@ -73,7 +73,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 
 # What I would do differently for production code
 1. I would investigate + test tabula-py more before using it in production code and consider other options.
-    - It did give me early issues and was crashing my kernel. Tabula-py is a python wrapper for "Tabula" a java library, so Java becomes a dependency.
+    - It did give me early issues and was crashing my kernel. Tabula-py is a python wrapper for "Tabula" a java library. By using tabula-py, Java becomes an environment dependency.
 2. I would not use Jupyter Notebooks to orchestrate this dataflow. I want to be able to run some notebooks simultaneously.
 3. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
     - Control of validation checks can also be done through JSON config files.
