@@ -54,7 +54,8 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
     - Therefore, I filled in those NULLs with "BRONZE" where active_flag == 'Y'
   - **For missing status and active_flag:** Im going to assume status is INACTIVE and active_flag is N as long as tier is NULL because if the company were to be active, it would of had a tier
     - Therefore, I filled in NULL status values with 'INACTIVE' and NULL active_flag values with 'N' where tier is NULL
-  - I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume why these missing values exist. Forward filling would guarantee inaccuracy in this case
+  - I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume why these missing values exist. Forward filling would guarantee inaccuracy in this case 
+
 - Validation checks:
   - I believe that every stage of data engineering needs to have validation checks in place before writing to the final table. There was not a validation check placed in analysis questions notebook because there was no final table being written and outputted into the database (file system).
   - I used a MOCK dataset for both client and invoices notebooks to test my validation tests.
@@ -64,8 +65,9 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
     - NULL values check: Make sure certain columns such as client_id do not have NULL values
     - Duplicate keys check: Make sure there is one unique value per combination of key columns (one row per invoice_id, client_id combo)
     - Invalid values check: Make sure only certain values exist in a column (Only 'Y' and 'N' for active_flag)
-- For the analysis queries, I am assuming every client is represented per client_id value and not by company_name. I assume that the reason these companies have multiple client_ids is because there may be different business needs required by the company.
 
+- No NULL or "string NULL" values were found in the invoices columns. All invoice_id values were unique. No data issues found.
+- For the analysis queries, I am assuming every client is represented per client_id value and not by company_name. I assume that the reason these companies have multiple client_ids is because there may be different business needs required by the company.
 - create_rate_sheet notebook
   - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
 
