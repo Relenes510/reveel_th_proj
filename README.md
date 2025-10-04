@@ -40,3 +40,5 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 3. I would not use Jupyter Notebooks to orchestrate this dataflow. It would be on something like Dagster
 
 # Design Choices
+- create_rate_sheet notebook
+  - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
