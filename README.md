@@ -70,7 +70,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 - For the analysis queries, I am assuming every client is represented per client_id value and not by company_name. I assume that the reason these companies have multiple client_ids is because there may be different business needs required by the company.
 - create_rate_sheet notebook
   - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
-- Even with all the assumptions and choices made, it is to the best interest of everyone if I learned the business side of things to make better decisions
+- *Even with all the assumptions and choices made, it is to the best interest of everyone if I learned the business side of things to make better decisions*
 
 # What I would do differently for production code
 1. I would investigate + test tabula-py more before using it in production code and consider other options.
