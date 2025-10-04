@@ -1,7 +1,7 @@
 # How to run pipeline
 The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open + run the individual notebooks to see how they are ran. All dependencies are included in the requirements.txt.
 <p align="center">
-  <img src="ETL_Design.jpeg" alt="Pipeline Diagram" width="500"/>
+  <img src="ETL_Design.jpeg" alt="Pipeline Diagram" width="1000"/>
   <br>
   <em>Pipeline Diagram: End-to-End Data Flow
   <br>This is how I would set this pipeline up in a real data orchestrating tool</em>
