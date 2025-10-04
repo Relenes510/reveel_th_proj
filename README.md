@@ -39,7 +39,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 - For string columns, I used normalize_str_col() where I would replace any string NONE and NAN with np.nan to truly represent NULL values.
   - I was able to find a misrepresented NULL value in the clients pdf source.
 - Int/Float columns were left as is.
-  - I did try to standardize the "total_amount" column by taking the numeric column thats in USD format (0.00) with the highest sum, but I realized thats not a good design as a column in USD format may be used thats sum is higher than the total_amount column.
+  - I did try to standardize the "total_amount" column from the invoices tables by taking the numeric column thats in USD format (0.00) with the highest sum, but I realized thats not a good design as a column in USD format may be used thats sum is higher than the total_amount column.
 
 - Originally I wanted to do the following to the clients table:
   - I found that there was rows in the joined clients.csv table where it had the same company_name, but it had a variation where one row was “INACTIVE” and the other row was “ACTIVE” status. I wanted to keep the ACTIVE row and drop the INACTIVE row as I was originally assuming that the INACTIVE entry is "expired".
