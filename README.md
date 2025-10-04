@@ -72,7 +72,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
   - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
 
 # What I would do differently for production code
-1. I would investigate and test tabula-py more before using it in production code and consider other options.
+1. I would investigate + test tabula-py more before using it in production code and consider other options.
     - It did give me early issues and was crashing my kernel. Tabula-py is a python wrapper for "Tabula" a java library, so Java becomes a dependency.
 2. I would not use Jupyter Notebooks to orchestrate this dataflow. I want to be able to run some notebooks simultaneously.
 3. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
