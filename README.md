@@ -1,5 +1,5 @@
 # How to run pipeline
-The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open + run the individual notebooks to see how they are ran. All dependencies are included in the requirements.txt. See Reveel Project Process.jpeg for a visual look into how I would set this pipeline up in a real data orchestrating tool
+The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open + run the individual notebooks to see how they are ran. All dependencies are included in the requirements.txt. ETL_Design.jpeg for a visual look into how I would set this pipeline up in a real data orchestrating tool
 
 # Assumptions made
  - If a company has a client_id entry as two different tiers, then I am going to assume they signed up for the higher available tier available. Meaning that I do not need to keep records of the lower tier as long as the client_id is the same for both entries
@@ -39,6 +39,21 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 2. I would definitely add a json file with configs for each table so I can specify which tables I want as CAPS or not
 3. I would not use Jupyter Notebooks to orchestrate this dataflow. It would be on something like Dagster
 
-# Design Choices
+# Assumptions made & Design Choices
+ - If a company has a client_id entry as two different tiers, then I am going to assume they signed up for the higher available tier available. Meaning that I do not need to keep records of the lower tier as long as the client_id is the same for both entries
+ - For missing tier: If a company does not have a value for tier, but are labeled as ACTIVE, then I am going to assume that BRONZE is the entry level tier and those active companies are BRONZE tier
+ - For missing status and active_flag: Im going to assume client_id is INACTIVE and active_flag is N as long as tier is NULL because if the company were to be active, it would of had a tier
+ - What is really throwing me off is how INACTIVE client_id made orders AFTER the cli_join_dt. I really thought about how is it possible that a company made an order while they are in inactive. The most logical way for me to reason this is that the company made all these orders before they became inactive
+   - Min invoice_date: 2024-01-01
+ - I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume a story to the reason of these missing values. Forward filling would guarantee inaccuracy in this case
+ - For the analysis queries, I am assuming every client is represented by every client_id and not by company_name
+
+- Originally I wanted to do the following to the clients table:
+  - I found that there was rows in the joined clients.csv table where it had the same company_name but a variation where one row had “INACTIVE” and the other had “ACTIVE” status. I wanted to keep the ACTIVE row and drop the INACTIVE one as I was originally assuming that the INACTIVE entry is "expired".
+  - I found that some companies had multiple active rows where one tier was higher than the other. I wanted to take the higher tier and drop the lower tier and ranked the tiers in the following: GOLD > SILVER > BRONZE > None
+  - I found that some companies had active rows with the same tier, I wanted to take the most recent entry. I assumed that the company bought the same tier again but the system failed to remove the older entry
+  - I wanted to drop rows that are inactive companies with NULL values in tier AND invalid active_flag value (not Y or N). As they may create data issues down the pipeline. I considered these companies as invalid and I wanted to enforce that all companies to have Y or N in the active_flag column via a validation check     I created in validate_save_df().
+- All these ideas were scrapped after I found entries in the invoice table where orders were made in 2024-01-01 through 2025-12-31 from all the client_ids, **including those that I was targetting to drop.** 
 - create_rate_sheet notebook
   - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
+
