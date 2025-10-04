@@ -30,16 +30,17 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
     - Which clients have >$500k savings?
       - [Show Answer 4 part C CSV](output_tables/answer4partc.csv) 
 
-# What I would do differently for production code
-1. I would investigate and test tabula-py more before using it in production code and consider other options.
-    - It did give me early issues and was crashing my kernel.
-2. I would not use Jupyter Notebooks to orchestrate this dataflow. I want to be able to run some notebooks simultaneously.
-3. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
-    - Control of validation checks can also be done through JSON config files.
-4. I would have the output_tables be divided by type (clients, invoices, etc.).
-5. In Production, I would add some logging functions to keep track of failures. I would 100% create a function that sends the team an email alert over failures in the ETL pipeline.
-
 # Assumptions made & Design Choices
+- To parse PDFs, I used tabula-py package as I was going to use pandas to manage the datasets.
+- For both invoices and clients, I created a script that checked whether the file type is a pdf or csv, and depending on which then I would create a pandas dataframe using different processes
+- After picking up the pandas dataframe, I would then use specific functions to try to find key columns such as client_id, company_name, the date column, shipment_type, and invoice_id.
+  - These individual functions would look at the data in the column and not the column name. Based off the data in the column it would rename the column to a standardized name
+- For the date columns, I used normalize_date_col() where I would clean up all the date formats to a consistent yyyy-mm-dd format
+- For string columns, I used normalize_str_col() where I would replace any string NONE and NAN with np.nan to truly represent NULL values
+  - I was able to find a misrepresented NULL value in the clients pdf source
+- Int/Float columns were left as is
+  - I did try to standardize the "total_amount" column by taking the numeric column thats in USD format (0.00) with the highest sum, but I realized thats not a good design as a column in USD format may be used thats sum is higher than the total_amount column.
+
 - Originally I wanted to do the following to the clients table:
   - I found that there was rows in the joined clients.csv table where it had the same company_name, but it had a variation where one row was “INACTIVE” and the other row was “ACTIVE” status. I wanted to keep the ACTIVE row and drop the INACTIVE row as I was originally assuming that the INACTIVE entry is "expired".
   - I found that some companies had multiple active rows where one tier was higher than the other. I wanted to take the higher tier and drop the lower tier and ranked the tiers in the following: GOLD > SILVER > BRONZE > None.
@@ -67,3 +68,11 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 - create_rate_sheet notebook
   - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
 
+# What I would do differently for production code
+1. I would investigate and test tabula-py more before using it in production code and consider other options.
+    - It did give me early issues and was crashing my kernel.
+2. I would not use Jupyter Notebooks to orchestrate this dataflow. I want to be able to run some notebooks simultaneously.
+3. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
+    - Control of validation checks can also be done through JSON config files.
+4. I would have the output_tables be divided by type (clients, invoices, etc.).
+5. In Production, I would add some logging functions to keep track of failures. I would 100% create a function that sends the team an email alert over failures in the ETL pipeline.
