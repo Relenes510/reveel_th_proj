@@ -32,13 +32,13 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 
 # Assumptions made & Design Choices
 - To parse PDFs, I used tabula-py package as I was going to use pandas to manage the datasets.
-- For both invoices and clients, I created a script that checked whether the file type is a pdf or csv, and depending on which then I would create a pandas dataframe using different processes
+- For both invoices and clients, I created a script that checked whether the file type is a pdf or csv, and depending on which then I would create a pandas dataframe using different processes.
 - After picking up the pandas dataframe, I would then use specific functions to try to find key columns such as client_id, company_name, the date column, shipment_type, and invoice_id.
-  - These individual functions would look at the data in the column and not the column name. Based off the data in the column it would rename the column to a standardized name
-- For the date columns, I used normalize_date_col() where I would clean up all the date formats to a consistent yyyy-mm-dd format
-- For string columns, I used normalize_str_col() where I would replace any string NONE and NAN with np.nan to truly represent NULL values
-  - I was able to find a misrepresented NULL value in the clients pdf source
-- Int/Float columns were left as is
+  - These individual functions would look at the data in the column and not the column name. Based off the data in the column it would rename the column to a standardized name.
+- For the date columns, I used normalize_date_col() where I would clean up all the date formats to a consistent yyyy-mm-dd format.
+- For string columns, I used normalize_str_col() where I would replace any string NONE and NAN with np.nan to truly represent NULL values.
+  - I was able to find a misrepresented NULL value in the clients pdf source.
+- Int/Float columns were left as is.
   - I did try to standardize the "total_amount" column by taking the numeric column thats in USD format (0.00) with the highest sum, but I realized thats not a good design as a column in USD format may be used thats sum is higher than the total_amount column.
 
 - Originally I wanted to do the following to the clients table:
