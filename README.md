@@ -31,17 +31,18 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
       - [Show Answer 4 part C CSV](output_tables/answer4partc.csv) 
 
 # What I would do differently for production code
-1. I would investigate and test tabula-py more before using it in production code and consider other options
-    - It did give me early issues and was crashing my kernel
-2. I would definitely add a json file with configs for each table so I can specify which tables I want as CAPS or not
-3. I would not use Jupyter Notebooks to orchestrate this dataflow. It would be on something like Dagster
-4. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
+1. I would investigate and test tabula-py more before using it in production code and consider other options.
+    - It did give me early issues and was crashing my kernel.
+2. I would not use Jupyter Notebooks to orchestrate this dataflow. I want to be able to run some notebooks simultaneously.
+3. I would want an easily editable JSON file with config information to control project values such as rate sheet prices.
+    - Control of validation checks can also be done through JSON config files.
+4. I would have the output_tables be divided by type (clients, invoices, etc.).
 
 # Assumptions made & Design Choices
 - Originally I wanted to do the following to the clients table:
   - I found that there was rows in the joined clients.csv table where it had the same company_name, but it had a variation where one row was “INACTIVE” and the other row was “ACTIVE” status. I wanted to keep the ACTIVE row and drop the INACTIVE row as I was originally assuming that the INACTIVE entry is "expired".
-  - I found that some companies had multiple active rows where one tier was higher than the other. I wanted to take the higher tier and drop the lower tier and ranked the tiers in the following: GOLD > SILVER > BRONZE > None
-  - I found that some companies had active rows with the same tier, I wanted to take the most recent entry. I assumed that the company bought the same tier again but the system failed to remove the older entry
+  - I found that some companies had multiple active rows where one tier was higher than the other. I wanted to take the higher tier and drop the lower tier and ranked the tiers in the following: GOLD > SILVER > BRONZE > None.
+  - I found that some companies had active rows with the same tier, I wanted to take the most recent entry. I assumed that the company bought the same tier again but the system failed to remove the older entry.
   - I wanted to drop rows that are inactive companies with NULL values in tier AND invalid active_flag value (not Y or N). As they may create data issues down the pipeline. I considered these companies as invalid and I wanted to enforce that all companies to have Y or N in the active_flag column via a validation check       I created in validate_save_df().
 - All these ideas were scrapped after I found entries in the invoice table where orders were made in 2024-01-01 through 2025-12-31 from all the client_ids, **including ALL of those that I was targetting to drop.** I really thought about how is it possible that a company made an order while they are in inactive. To me the most logical reason is that the company made all these orders before they became inactive. I thought it was best to not drop any client_ids to preserve those orders for when its time to join the clients with invoices table.
 
@@ -51,10 +52,16 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 - **For missing status and active_flag:** Im going to assume status is INACTIVE and active_flag is N as long as tier is NULL because if the company were to be active, it would of had a tier
   - Therefore, I filled in NULL status values with 'INACTIVE' and NULL active_flag values with 'N' where tier is NULL
 - I did think about forward filling these missing values but there wasnt a clear pattern to follow where I was able to assume why these missing values exist. Forward filling would guarantee inaccuracy in this case
-- Validation checks
+- Validation checks:
   - I believe that every stage of data engineering needs to have validation checks in place before writing to the final table. There was not a validation check placed in analysis questions notebook because there was no final table being written and outputted into the database (file system).
-  - 
-- For the analysis queries, I am assuming every client is represented per client_id value and not by company_name. I assume that the reason these companies have multiple client_ids is because there may be different business needs required by the company
+  - I used a MOCK dataset for both client and invoices notebooks to test my validation tests.
+  - **Client_id validation check**: I checked in create_clients_tbls whether all of the client_ids were in valid format. This was because I did not want to have invalid values in a key column. That would bring problems further down the line in future processes.
+  - **Invoice_id validation check**: I checked in create_invoices_tbls whether all invoice_ids wre in valid format as well for the same reason of futureproofing against issues.
+  - However for more complex datasets, I would want a lot more different validation checks such as:
+    - NULL values check: Make sure certain columns such as client_id do not have NULL values
+    - Duplicate keys check: Make sure there is one unique value per combination of key columns (one row per invoice_id, client_id combo)
+    - Invalid values check: Make sure only certain values exist in a column (Only 'Y' and 'N' for active_flag)
+- For the analysis queries, I am assuming every client is represented per client_id value and not by company_name. I assume that the reason these companies have multiple client_ids is because there may be different business needs required by the company.
 
 - create_rate_sheet notebook
   - I decided to make this notebook to allow the edits of the rate sheet table values. Maybe the company will come up with a new shipment type. Maybe the prices will need to be updated. At the end of the day, it is better to provide an easy option to update the values instead of hard coding them into the notebooks.
