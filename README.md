@@ -60,7 +60,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
   - I believe that every stage of data engineering needs to have validation checks in place before writing to the final table. There was not a validation check placed in analysis questions notebook because there was no final table being written and outputted into the database (file system).
   - I used a MOCK dataset for both client and invoices notebooks to test my validation tests.
   - **Client_id validation check**: I checked in create_clients_tbls whether all of the client_ids were in valid format. I did not want to have invalid values in a key column. That would bring problems further down the line in future processes.
-  - **Invoice_id validation check**: I checked in create_invoices_tbls whether all invoice_ids are in valid format as well, for the same reason of futureproofing against issues.
+  - **Invoice_id validation check**: I checked in create_invoices_tbls whether all invoice_ids are in valid format as well, for the same reason as client_id validation check, to futureproof against issues.
   - However for more complex datasets, I would want a lot more different validation checks such as:
     - NULL values check: Make sure certain columns such as client_id do not have NULL values
     - Duplicate keys check: Make sure there is one unique value per combination of key columns (one row per invoice_id, client_id combo)
