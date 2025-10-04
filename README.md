@@ -1,6 +1,7 @@
 # How to run pipeline
-The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open + run the individual notebooks to see how they are ran. All dependencies are included in the requirements.txt. ETL_Design.jpeg for a visual look into how I would set this pipeline up in a real data orchestrating tool
+The actual “pipeline” is essentially the Pipeline notebook that triggers the individual pieces. Run the “pipeline” notebook to get all the notebook outputs. Open + run the individual notebooks to see how they are ran. All dependencies are included in the requirements.txt.
 ![ETL_Design.jpeg](ETL_Design.jpeg)
+This is how I would set this pipeline up in a real data orchestrating tool
 
 # Example outputs for analysis queries
 ##### Please see ./analysis questions.ipynb for derivation of answers!
