@@ -50,7 +50,7 @@ The actual “pipeline” is essentially the Pipeline notebook that triggers the
 
 - What I stuck with:
   - If a company has the same client_id value in the table as two different rows & tiers, then I am going to assume they signed up for the higher available tier available. Meaning that I do not need to keep records of the lower tier as long as the client_id is the same for both entries
-  - **For missing tier:** If a company does not have a value for tier, but are labeled as ACTIVE, then I am going to assume that BRONZE is the entry level tier and those active companies are BRONZE tier
+  - **For missing tier:** If a company does not have a value for tier column, but are labeled as ACTIVE in status column, then I am going to assume that BRONZE is the entry level tier and those active companies are BRONZE tier
     - Therefore, I filled in those NULLs with "BRONZE" where active_flag == 'Y'
   - **For missing status and active_flag:** Im going to assume status is INACTIVE and active_flag is N as long as tier is NULL because if the company were to be active, it would of had a tier
     - Therefore, I filled in NULL status values with 'INACTIVE' and NULL active_flag values with 'N' where tier is NULL
